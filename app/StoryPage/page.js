@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
 import ScreenplayViewer from '@/components/ScreenPlayViewer';
+import toast from 'react-hot-toast';
 
 function StoryPage() {
   const router = useRouter();
@@ -23,6 +24,27 @@ function StoryPage() {
     }, 1500); 
   }, []);
 
+    const handleDownload = () => {
+    if (!screenplay) return;
+
+    const blob = new Blob([screenplay], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'screenplay.txt';
+    a.click();
+
+    URL.revokeObjectURL(url); // clean up
+    toast.success('Screenplay downloaded!');
+  };
+
+  const handleCopy=()=>{
+    if (!screenplay) return
+    navigator.clipboard.writeText(screenplay);
+    toast.success('Screenplay copied to clipboard!')
+  }
+
   return (
     <div className="h-[1000px] w-full bg-[#111317] pt-[85px] px-[310px]">
       <div className="w-full h-[750px] bg-[#111317] mt-[30px]">
@@ -34,23 +56,20 @@ function StoryPage() {
             {/* Button Group */}
             <div className="flex space-x-2">
               {/* Copy Button */}
-              <button className="flex items-center space-x-1 bg-[#111317] hover:bg-[#2a2a2e] text-white px-3 py-1.5 rounded border border-white/20 text-sm">
+              <button className="flex items-center space-x-1 bg-[#111317] hover:bg-[#2a2a2e] text-white px-3 py-1.5 rounded border border-white/20 text-sm"
+              onClick={handleCopy}
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2M16 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-8a2 2 0 01-2-2v-2" />
                 </svg>
                 <span>Copy</span>
               </button>
 
-              {/* Share Button */}
-              <button className="flex items-center space-x-1 bg-[#111317] hover:bg-[#2a2a2e] text-white px-3 py-1.5 rounded border border-white/20 text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 12v-2a2 2 0 012-2h12a2 2 0 012 2v2M16 6l4 4m0 0l-4 4m4-4H4" />
-                </svg>
-                <span>Share</span>
-              </button>
 
               {/* Download Button */}
-              <button className="flex items-center space-x-1 bg-[#111317] hover:bg-[#2a2a2e] text-white px-3 py-1.5 rounded border border-white/20 text-sm">
+              <button className="flex items-center space-x-1 bg-[#111317] hover:bg-[#2a2a2e] text-white px-3 py-1.5 rounded border border-white/20 text-sm"
+              onClick={handleDownload}
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 4v12m0 0l-4-4m4 4l4-4" />
                 </svg>

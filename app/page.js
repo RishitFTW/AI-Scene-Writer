@@ -1,5 +1,5 @@
 "use client"
-import Image from "next/image";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -20,7 +20,7 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt: Text }),        
+      body: JSON.stringify({ prompt: Text }),         
       })
 
       const data= await response.json();
