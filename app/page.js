@@ -1,6 +1,39 @@
+"use client"
 import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 
 export default function Home() {
+
+  const [Text,setText]= useState("");
+  const [gettingStory,setgettingStory]= useState(false);
+  const router= useRouter();
+ 
+  const handleGenerate=async()=>{
+    if(Text.length==0) return;
+    setgettingStory(true);
+    try {
+      console.log(Text);
+      // const response= await fetch("api/generate",{
+      //   method:"POST",
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+      // body: JSON.stringify({ prompt: Text }),        
+      // })
+
+      // const data= await response.json();
+      router.push('/StoryPage')
+      console.log(data);
+
+    } catch (error) {
+      console.error("Error generating screenplay:", error);
+    } finally{
+      setgettingStory(false);
+    }
+  }
+
   return (
     <div className="pt-[85px] w-full min-h-screen bg-[#111317] text-white">
       <div className="pt-11 px-6">
@@ -54,13 +87,18 @@ export default function Home() {
                   placeholder="Enter your scene idea (e.g., 'Two superheroes debate who makes better pancakes')"
                   rows="3"
                   maxLength="500"
+                  value={Text}
+                  onChange={(e)=>setText(e.target.value)}
                 ></textarea>
               </div>
-              <div className="text-xs text-gray-500 mt-1">0/500 characters</div>
+              <div className="text-xs text-gray-500 mt-1">{Text.length}/500 characters</div>
 
               {/* Button */}
               <div className="mt-4">
-                <button className="w-full bg-[#a78b48] hover:bg-[#b79853] transition-colors text-black font-medium py-3 rounded-md flex items-center justify-center gap-2">
+                <button 
+                onClick={handleGenerate}
+                className={`w-full transition-colors text-black font-medium py-3 rounded-md flex items-center justify-center gap-2
+                                   ${Text.length > 0 ? "bg-[#FCDA76] hover:bg-[#e9c25e]" : "bg-[#a78b48] hover:bg-[#b79853]"}`}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-5 w-5"
@@ -84,17 +122,21 @@ export default function Home() {
                   Need inspiration? Try these:
                 </p>
                 <div className="flex flex-col h-[190px] gap-2">
-                  <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer">
+                  <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer"
+                  onClick={()=>{setText("Sherlock Holmes and Darth Vader argue about whose cape is better")}}>
                     "Sherlock Holmes and Darth Vader argue about whose cape is
                     better"
                   </div>
-                  <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer">
+                  <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer"
+                  onClick={()=>{setText("Batman orders a complicated coffee at Starbucks")}}>
                     "Batman orders a complicated coffee at Starbucks"
                   </div>
-                  <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer">
+                  <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer"
+                  onClick={()=>{setText("Two rival chefs compete in a cooking show on Mars")}}>
                     "Two rival chefs compete in a cooking show on Mars"
                   </div>
-                  <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer">
+                  <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer"
+                  onClick={()=>{setText("A time traveler accidentally orders pizza in medieval times")}}>
                     "A time traveler accidentally orders pizza in medieval times"
                   </div>
                 </div>
