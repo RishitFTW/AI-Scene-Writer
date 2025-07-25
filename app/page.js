@@ -125,20 +125,20 @@ export default function Home() {
                 <div className="flex flex-col h-[190px] gap-2">
                   <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer"
                   onClick={()=>{setText("Sherlock Holmes and Darth Vader argue about whose cape is better")}}>
-                    "Sherlock Holmes and Darth Vader argue about whose cape is
-                    better"
+                    {'"'}Sherlock Holmes and Darth Vader argue about whose cape is
+                    better{'"'}
                   </div>
                   <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer"
                   onClick={()=>{setText("Batman orders a complicated coffee at Starbucks")}}>
-                    "Batman orders a complicated coffee at Starbucks"
+                    {'"'}Batman orders a complicated coffee at Starbucks{'"'}
                   </div>
                   <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer"
                   onClick={()=>{setText("Two rival chefs compete in a cooking show on Mars")}}>
-                    "Two rival chefs compete in a cooking show on Mars"
+                    {'"'}Two rival chefs compete in a cooking show on Mars{'"'}
                   </div>
                   <div className="flex-1 bg-[#1e1e1e] border border-[#2c2c2c] rounded-md p-2 text-sm text-gray-300 hover:bg-[#2a2a2a] transition-colors cursor-pointer"
                   onClick={()=>{setText("A time traveler accidentally orders pizza in medieval times")}}>
-                    "A time traveler accidentally orders pizza in medieval times"
+                    {'"'}A time traveler accidentally orders pizza in medieval times{'"'}
                   </div>
                 </div>
               </div>
