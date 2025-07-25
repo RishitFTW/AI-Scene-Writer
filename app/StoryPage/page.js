@@ -1,10 +1,27 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation";
+import ScreenplayViewer from '@/components/ScreenPlayViewer';
 
 function StoryPage() {
-  
-  const router= useRouter()
+  const router = useRouter();
+  const [screenplay, setScreenplay] = useState("");
+  const [renderingScreenplay, setRenderingScreenplay] = useState(false);
+
+  useEffect(() => {
+    setRenderingScreenplay(true);
+    const storedScreenplay = localStorage.getItem('screenplayResult');
+
+    if (storedScreenplay) {
+      setScreenplay(storedScreenplay);
+    } else {
+      setScreenplay("No screenplay found. Please go back and generate one.");
+    }
+
+    setTimeout(() => {
+      setRenderingScreenplay(false);
+    }, 1500); 
+  }, []);
 
   return (
     <div className="h-[1000px] w-full bg-[#111317] pt-[85px] px-[310px]">
@@ -41,8 +58,9 @@ function StoryPage() {
               </button>
 
               {/* New Scene Button */}
-              <button className="flex items-center space-x-1 bg-[#111317] hover:bg-[#3a3a3f] text-white px-3 py-1.5 rounded border border-white/20 text-sm"
-              onClick={()=>{ router.push('/')}}
+              <button
+                className="flex items-center space-x-1 bg-[#111317] hover:bg-[#3a3a3f] text-white px-3 py-1.5 rounded border border-white/20 text-sm"
+                onClick={() => { router.push('/') }}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 4v16m8-8H4" />
@@ -53,8 +71,22 @@ function StoryPage() {
           </div>
         </div>
 
-        <div className='bg-[#F7F6F2] mt-[20px] h-full rounded-md'>
-          Render the Story
+        {/* Main Content / Skeleton */}
+        <div className='bg-[#F7F6F2] mt-[20px] h-full rounded-md p-6 text-black overflow-y-auto'>
+          {renderingScreenplay ? (
+            <div className="space-y-4 animate-pulse">
+              <div className="h-4 bg-gray-300 rounded w-1/3"></div>
+              <div className="h-3 bg-gray-300 rounded w-full"></div>
+              <div className="h-3 bg-gray-300 rounded w-5/6"></div>
+              <div className="h-3 bg-gray-300 rounded w-3/4"></div>
+              <div className="h-3 bg-gray-300 rounded w-full"></div>
+              <div className="h-3 bg-gray-300 rounded w-2/3"></div>
+              <div className="h-3 bg-gray-300 rounded w-1/2"></div>
+              <div className="h-3 bg-gray-300 rounded w-5/6"></div>
+            </div>
+          ) : (
+            <ScreenplayViewer screenplay={screenplay} />
+          )}
         </div>
       </div>
     </div>

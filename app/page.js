@@ -15,15 +15,16 @@ export default function Home() {
     setgettingStory(true);
     try {
       console.log(Text);
-      // const response= await fetch("api/generate",{
-      //   method:"POST",
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
-      // body: JSON.stringify({ prompt: Text }),        
-      // })
+      const response= await fetch("api/generate",{
+        method:"POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt: Text }),        
+      })
 
-      // const data= await response.json();
+      const data= await response.json();
+      localStorage.setItem('screenplayResult', data.screenplay);
       router.push('/StoryPage')
       console.log(data);
 
@@ -113,7 +114,7 @@ export default function Home() {
                       d="M5.5 15.5l-1.25 3.25L1 20l3.25 1.25L5.5 24l1.25-3.25L10 20l-3.25-1.25L5.5 15.5zM18 8.25l-2.25-5.5L13.5 8.25l-5.5 2.25 5.5 2.25 2.25 5.5 2.25-5.5 5.5-2.25-5.5-2.25z"
                     />
                   </svg>
-                  Generate Screenplay
+                  {gettingStory ? "Loading..." : "Generate Screenplay"}
                 </button>
               </div>
 
