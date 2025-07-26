@@ -1,4 +1,11 @@
 import React from 'react'
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
 
 function Navbar() {
   return (
@@ -19,14 +26,35 @@ function Navbar() {
             />
         </svg>
         </div>
-
+{/* bg-[#F2CC5A] p-1 px-3 rounded-2xl text-sm */}
         <div>
             <h1 className="text-2xl font-bold text-[#F2CC5A] leading-tight">AI Scene Writer</h1>
             <p className="text-sm text-gray-400 leading-normal">Hollywood screenplays powered by AI</p>
+        </div>
+        <div className=' ml-[900px] items-center'>
+            <SignedOut>
+              <SignInButton>
+                <button className="text-gray-400 p-2 px-3 rounded-xl text-md cursor-pointer">
+                  Sign In
+                </button>
+              </SignInButton>
+
+              <SignUpButton>
+                <button className="bg-[#F2CC5A] ml-4 p-2 px-3 rounded-xl text-md cursor-pointer">
+                  Get Started
+                </button>
+              </SignUpButton>
+            </SignedOut>
+            <SignedIn>
+            <div className="h-12 w-12 ml-35 pt-3">
+              <UserButton />
+            </div>
+            </SignedIn>
         </div>
     </div>
 
   )
 }
+
 
 export default Navbar
